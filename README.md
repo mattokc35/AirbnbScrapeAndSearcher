@@ -1,4 +1,4 @@
-# AirbnbScraper
+# AirbnbScrapeAndSearcher
 
 *work in progress*
 
