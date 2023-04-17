@@ -32,8 +32,6 @@ f = open("dataFile.txt", "a", encoding="utf-8")
 """
 Gets all listings
 """
-
-
 def get_listings(search_page, page_number):
     found = False
     # http get request the url
