@@ -1,6 +1,7 @@
 import requests
 from scrapy.selector import Selector
 import sys
+import csv
 
 from bs4 import BeautifulSoup
 
@@ -11,10 +12,9 @@ TODO: write data to .csv/excel file, implement command line inputs
 """
 
 # (temporary) input your Airbnb search url here
-airbnb_url = ""
+airbnb_url = "https://www.airbnb.com/s/Crystal-Beach--Bolivar-Peninsula--Texas--United-States/homes?tab_id=home_tab&refinement_paths%5B%5D=%2Fhomes&flexible_trip_lengths%5B%5D=one_week&price_filter_input_type=0&price_filter_num_nights=2&channel=EXPLORE&query=Crystal%20Beach%2C%20Bolivar%20Peninsula%2C%20TX&place_id=ChIJW22TbZgOP4YR0ZAd894jquI&date_picker_type=calendar&checkin=2023-05-08&checkout=2023-05-10&adults=10&source=structured_search_input_header&search_type=filter_change&federated_search_session_id=fc42a9d3-7a8f-40d6-a571-1b93f1440cec&pagination_search=true&cursor=eyJzZWN0aW9uX29mZnNldCI6MCwiaXRlbXNfb2Zmc2V0IjowLCJ2ZXJzaW9uIjoxfQ%3D%3D"
 # (temporary) put the name of your listing here
-my_beachhouse = ""
-
+my_beachhouse = "New! Luxury Hidden Gem! Family/Walk 2 Beach/Wi-Fi"
 listingsTotal = []
 pageNumber = 1
 
@@ -27,11 +27,21 @@ allListings = False
 # file
 f = open("dataFile.txt", "a", encoding="utf-8")
 
+# csv file
+csvFile = open('dataFile.csv', 'w', encoding='UTF8')
+writer = csv.writer(csvFile)
+
+# csv header
+header = ['Listing Card Title', 'Listing Card Subtitle', 'Beds', 'Bedrooms', 'Current Nightly Price', 'Previous Nightly Price', 'Total Price', 'Superhost/Rare Find', 'Ratings/Reviews']
+writer.writerow(header)
+
 
 
 """
 Gets all listings
 """
+
+
 def get_listings(search_page, page_number):
     found = False
     # http get request the url
@@ -100,6 +110,9 @@ def get_listings(search_page, page_number):
         f.write("Total Price: " + total_price + '\n')
         f.write("Superhost/Rare Find: " + super_host + '\n')
         f.write(ratings_reviews + '\n\n\n')
+
+        # write row to csv
+        writer.writerow([listing_card_name, listing_card_subtitle, num_beds, num_bedrooms, current_price, previous_price, total_price, super_host, ratings_reviews])
 
         # my beachhouse is founds
         if my_beachhouse in listings[i].get_text():
