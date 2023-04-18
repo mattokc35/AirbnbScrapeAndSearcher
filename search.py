@@ -12,9 +12,9 @@ TODO: write data to .csv/excel file, implement command line inputs
 """
 
 # (temporary) input your Airbnb search url here
-airbnb_url = "https://www.airbnb.com/s/Crystal-Beach--Bolivar-Peninsula--Texas--United-States/homes?tab_id=home_tab&refinement_paths%5B%5D=%2Fhomes&flexible_trip_lengths%5B%5D=one_week&price_filter_input_type=0&price_filter_num_nights=2&channel=EXPLORE&query=Crystal%20Beach%2C%20Bolivar%20Peninsula%2C%20TX&place_id=ChIJW22TbZgOP4YR0ZAd894jquI&date_picker_type=calendar&checkin=2023-05-08&checkout=2023-05-10&adults=10&source=structured_search_input_header&search_type=filter_change&federated_search_session_id=fc42a9d3-7a8f-40d6-a571-1b93f1440cec&pagination_search=true&cursor=eyJzZWN0aW9uX29mZnNldCI6MCwiaXRlbXNfb2Zmc2V0IjowLCJ2ZXJzaW9uIjoxfQ%3D%3D"
+airbnb_url = ""
 # (temporary) put the name of your listing here
-my_beachhouse = "New! Luxury Hidden Gem! Family/Walk 2 Beach/Wi-Fi"
+my_beachhouse = ""
 listingsTotal = []
 pageNumber = 1
 
