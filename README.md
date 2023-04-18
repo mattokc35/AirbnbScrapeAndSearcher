@@ -11,3 +11,4 @@ Current Example Usage:
 python3 main.py --location=<my-location> --checkin=2023-05-09 --checkout=2023-05-11 --adults=10 --children=0 --infants=0 --pets=0
 ```
 
+Location must be space-separated with '-' (dashes), and date must be written with `yyyy-mm-dd` formatting.
