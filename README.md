@@ -19,3 +19,5 @@ python3 main.py --location=<my-location> --checkin=2023-05-09 --checkout=2023-05
 ```
 
 Location must be space-separated with '-' (dashes), and date must be written with `yyyy-mm-dd` formatting.
+
+Children, infants, and pets are optional parameters and will default to 0.
