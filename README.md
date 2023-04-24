@@ -15,9 +15,11 @@ pip3 bs4, scrapy
 Current Example Usage:
 
 ```console
-python3 search.py --location=<my-location> --checkin=2023-05-09 --checkout=2023-05-11 --adults=10 --children=0 --infants=0 --pets=0
+python3 search.py --location=<my-location> --checkin=2023-05-09 --checkout=2023-05-11 --adults=10 --children=0 --infants=0 --pets=0 --my_listing=<your-listing-id-here>
 ```
 
 Location must be space-separated with '-' (dashes), and date must be written with `yyyy-mm-dd` formatting.
 
 Children, infants, and pets are optional parameters and will default to 0.
+
+**Children and infants currently not working**
