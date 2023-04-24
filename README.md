@@ -1,6 +1,7 @@
 # AirbnbScrapeAndSearcher
 
 *work in progress*
+*note: Children and infants currently not working*
 
 
 
@@ -23,4 +24,3 @@ Location must be space-separated with '-' (dashes), and date must be written wit
 
 Children, infants, and pets are optional parameters and will default to 0.
 
-**Children and infants currently not working**
