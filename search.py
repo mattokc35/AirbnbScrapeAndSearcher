@@ -73,7 +73,7 @@ def get_listings(search_page, page_number):
 
         # write to txt file
         f.write("NEXT LISTING " + "\n\n\n")
-        # f.write(listings[i].prettify() + '\n\n\n')
+        f.write(listings[i].prettify() + '\n\n\n')
         f.write(listing_card_name + '\n')
         f.write(listing_card_subtitle + '\n')
         f.write(num_beds + '\n')
@@ -85,11 +85,12 @@ def get_listings(search_page, page_number):
         f.write(ratings_reviews + '\n\n\n')
 
         # write row to csv file
-        writer.writerow([listing_card_name, listing_card_subtitle, num_beds, num_bedrooms,
+        writer.writerow([checkin, checkout, listing_card_name, listing_card_subtitle, num_beds, num_bedrooms,
                         current_price, previous_price, total_price, super_host, ratings_reviews])
 
         # if my beachhouse is found
-        if my_beachhouse in listings[i].get_text():
+        if my_beachhouse in str(listings[i]):
+            print("FOUND ON PAGE " + str(page_number))
             found = True
             break
     # Find the next page url
@@ -125,13 +126,13 @@ Parses command line arguments (user input)
 
 
 def command_line_arguments():
-    opts, args = getopt.getopt(sys.argv[1:], "hlcoa:kip",  ["location=", "checkin=", "checkout=",
-                                                            "adults=", "children=", "infants=", "pets="])
+    opts, args = getopt.getopt(sys.argv[1:], "hlcoa:kipm",  ["location=", "checkin=", "checkout=",
+                                                            "adults=", "children=", "infants=", "pets=", "my_listing="])
     # checking each argument
     for opt, arg in opts:
         if opt == '-h':
             print("Example Arguments:")
-            print('--location=<Your-Location> --checkin=2023-01-01 --checkout=2023-01-01 --adults=10 --children=1 --infants=1 --pets=1')
+            print('--location=<Your-Location> --checkin=2023-01-01 --checkout=2023-01-01 --adults=10 --children=1 --infants=1 --pets=1 --my_listing=<your-listing-id-here>')
             sys.exit()
         elif opt in ("-l", "--location"):
             location = arg
@@ -147,7 +148,9 @@ def command_line_arguments():
             infants = arg
         elif opt in ("-p", "--pets"):
             pets = arg
-    return location, checkin, checkout, adults, children, infants, pets
+        elif opt in ("-m", "--my_listing"):
+            my_beachhouse = arg
+    return location, checkin, checkout, adults, children, infants, pets, my_beachhouse
 
 
 # these optional arguments start with a default value
@@ -156,7 +159,7 @@ infants = "0"
 pets = "0"
 
 # initialize command line arguments
-location, checkin, checkout, adults, children, infants, pets = command_line_arguments()
+location, checkin, checkout, adults, children, infants, pets, my_beachhouse = command_line_arguments()
 
 # contructs the Airbnb Search URL based on command line arguments
 airbnb_url = url_constructor(
@@ -164,7 +167,6 @@ airbnb_url = url_constructor(
 print(airbnb_url)
 
 # (temporary) put the name of your listing here
-my_beachhouse = ""
 listingsTotal = []
 pageNumber = 1
 
@@ -174,15 +176,16 @@ listingFound = False
 # if you want all listings
 allListings = False
 
-# file
+# text file
 f = open("dataFile.txt", "a", encoding="utf-8")
 
-# csv file
-csvFile = open('dataFile.csv', 'w', encoding='UTF8')
+# csv file will be named {checkin-date}-{checkout-date}.csv
+csvFileName = f"{checkin}-{checkout}.csv"
+csvFile = open(csvFileName, 'w', encoding='UTF8')
 writer = csv.writer(csvFile, lineterminator='\n')
 
 # csv header
-header = ['Listing Card Title', 'Listing Card Subtitle', 'Beds', 'Bedrooms', 'Current Nightly Price',
+header = ['Check-in', 'Check-out', 'Listing Card Title', 'Listing Card Subtitle', 'Beds', 'Bedrooms', 'Current Nightly Price',
           'Previous Nightly Price', 'Total Price', 'Superhost/Rare Find', 'Ratings/Reviews']
 writer.writerow(header)
 
@@ -193,6 +196,8 @@ print(str(found))
 if found == True:
     listing_found(page_number)
 
+# print next search url link
+print("https://www.airbnb.com" + next_page_url)
 
 # after the first page, we will loop through the rest of the pages
 counter = 0
@@ -201,9 +206,13 @@ while next_page_url != None and counter <= 14:
     page_number += 1
     listings, next_page_url, found, page_number = get_listings(
         "https://www.airbnb.com" + next_page_url, page_number)
-    print(str(found))
+    print(str(found) + "\n")
     if found == True:
         listing_found(page_number)
+
+    # print next search url link
+    if next_page_url != None:
+        print("https://www.airbnb.com" + next_page_url)
 
 
 f.close()
