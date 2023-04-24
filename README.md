@@ -4,7 +4,7 @@
 
 
 
-This program runs an Airbnb search and returns what page your listing lands on. Additionally, it scrapes data about your listing and all other listings found in the search, and writes this data to both a .csv and .txt file
+This program runs an Airbnb search and returns what page your listing lands on. Additionally, it scrapes data about your listing and all other listings found in the search, and writes this data to both a .csv and .txt file. You will need to provide the Listing ID of your Airbnb Property (in the `my_listing command` line argument).
 
 To get started, install requirements `bs4` and `scrapy` with pip.
 
