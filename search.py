@@ -73,7 +73,7 @@ def get_listings(search_page, page_number):
 
         # write to txt file
         f.write("NEXT LISTING " + "\n\n\n")
-        f.write(listings[i].prettify() + '\n\n\n')
+        # f.write(listings[i].prettify() + '\n\n\n')
         f.write(listing_card_name + '\n')
         f.write(listing_card_subtitle + '\n')
         f.write(num_beds + '\n')
@@ -90,6 +90,7 @@ def get_listings(search_page, page_number):
 
         # if my beachhouse is found
         if my_beachhouse in str(listings[i]):
+            f.write("FOUND ON PAGE " + str(page_number))
             print("FOUND ON PAGE " + str(page_number))
             found = True
             break
@@ -127,7 +128,7 @@ Parses command line arguments (user input)
 
 def command_line_arguments():
     opts, args = getopt.getopt(sys.argv[1:], "hlcoa:kipm",  ["location=", "checkin=", "checkout=",
-                                                            "adults=", "children=", "infants=", "pets=", "my_listing="])
+                                                             "adults=", "children=", "infants=", "pets=", "my_listing="])
     # checking each argument
     for opt, arg in opts:
         if opt == '-h':
@@ -177,10 +178,11 @@ listingFound = False
 allListings = False
 
 # text file
-f = open("dataFile.txt", "a", encoding="utf-8")
+textFileName = f"{checkin}-{checkout}-{location}.txt"
+f = open(textFileName, "a", encoding="utf-8")
 
 # csv file will be named {checkin-date}-{checkout-date}.csv
-csvFileName = f"{checkin}-{checkout}.csv"
+csvFileName = f"{checkin}-{checkout}-{location}.csv"
 csvFile = open(csvFileName, 'w', encoding='UTF8')
 writer = csv.writer(csvFile, lineterminator='\n')
 
