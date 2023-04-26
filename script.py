@@ -11,14 +11,13 @@ i = 1
 for line in text_list:
     print("\n NEXT SEARCH (Search #" + str(i) + ")\n")
     params = line.split(',')
-    location = params[0]
-    print(location)
-    checkin = params[1]
-    checkout = params[2]
-    adults = params[3]
-    children = params[4]
-    infants = params[5]
-    pets = params[6]
+    location = params[0].strip()
+    checkin = params[1].strip()
+    checkout = params[2].strip()
+    adults = params[3].strip()
+    children = params[4].strip()
+    infants = params[5].strip()
+    pets = params[6].strip()
     my_listing = params[7].strip() #strip gets rid of newline character
     test = subprocess.run(["python3", "search.py", "--location="+location, "--checkin=" + checkin, "--checkout=" + checkout, "--adults=" + adults, "--children=" + children, "--infants=" + infants, "--pets=" + pets, "--my_listing=" + my_listing], capture_output=True, text=True)
     print(test.stdout)
