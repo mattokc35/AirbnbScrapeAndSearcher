@@ -5,8 +5,7 @@
 *note: Children and infants currently not working*
 
 
-
-This program runs an Airbnb search and returns what page your listing lands on. Additionally, it scrapes data about your listing and all other listings found in the search, and writes this data to both a .csv and .txt file.
+This program runs an Airbnb searches and returns what page your listing lands on for each search. Additionally, it scrapes data about your listing and all other listings found in the search, and writes this data to both a .csv and .txt file.
 
 # Installing Requirements
 
@@ -18,7 +17,7 @@ pip3 bs4, scrapy
 
 # Running the Program
 
-Put your search parameters in the InputParameters.csv file. 
+Put your search parameters in the `InputParameters.csv` file. 
 
 Location must be space-separated with '-' (dashes), and date must be written with `yyyy-mm-dd` formatting.
 
