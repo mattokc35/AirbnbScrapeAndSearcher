@@ -4,6 +4,7 @@ import csv
 import getopt
 from scrapy.selector import Selector
 from bs4 import BeautifulSoup
+import os
 
 
 """
@@ -32,19 +33,26 @@ def get_listings(search_page, page_number):
             'div', {'class': 't1jojoys'}).text
         listing_card_subtitle = listings[i].find(
             'span', {'class': 't6mzqp7'}).text
-
         if listings[i].find(
                 'span', {'class': 't5eq1io r4a59j5 dir dir-ltr'}) == None:
             ratings_reviews = "No Reviews"
         else:
             ratings_reviews = listings[i].find(
                 'span', {'class': 't5eq1io r4a59j5 dir dir-ltr'}).get('aria-label')
-
         # get beds and bedrooms
         beds_bedrooms = listings[i].find_all(
             'span', {'class': 'dir dir-ltr'})
-        num_beds = beds_bedrooms[0].text
-        num_bedrooms = beds_bedrooms[1].text
+        
+        num_beds = "beds_placeholder" 
+        num_bedrooms = "bedrooms_placeholder" 
+        drive_to_beach = "drive_to_beach_placeholder"
+
+        #TEMPORARY FIX for beds/bedrooms/drive to beach time
+        if len(beds_bedrooms) == 1:
+            drive_to_beach = beds_bedrooms[0].text
+        else:
+            num_beds = beds_bedrooms[0].text
+            num_bedrooms = beds_bedrooms[1].text
 
         # nightly price
         # if listing is on sale
@@ -73,19 +81,19 @@ def get_listings(search_page, page_number):
 
         # write to txt file
         f.write("NEXT LISTING " + "\n\n\n")
-        # f.write(listings[i].prettify() + '\n\n\n')
+        #f.write(listings[i].prettify() + '\n\n\n')
         f.write(listing_card_name + '\n')
         f.write(listing_card_subtitle + '\n')
         f.write(num_beds + '\n')
         f.write(num_bedrooms + '\n')
+        f.write(drive_to_beach + '\n')
         f.write("Current Nightly Price: " + current_price + '\n')
         f.write("Previous Nightly Price: " + previous_price + '\n')
         f.write("Total Price: " + total_price + '\n')
         f.write("Superhost/Rare Find: " + super_host + '\n')
         f.write(ratings_reviews + '\n\n\n')
-
         # write row to csv file
-        writer.writerow([checkin, checkout, listing_card_name, listing_card_subtitle, num_beds, num_bedrooms,
+        writer.writerow([checkin, checkout, listing_card_name, listing_card_subtitle, num_beds, num_bedrooms, drive_to_beach,
                         current_price, previous_price, total_price, super_host, ratings_reviews])
 
         # if my beachhouse is found
@@ -187,13 +195,11 @@ csvFile = open(csvFileName, 'w', encoding='UTF8')
 writer = csv.writer(csvFile, lineterminator='\n')
 
 # csv header
-header = ['Check-in', 'Check-out', 'Listing Card Title', 'Listing Card Subtitle', 'Beds', 'Bedrooms', 'Current Nightly Price',
+header = ['Check-in', 'Check-out', 'Listing Card Title', 'Listing Card Subtitle', 'Beds', 'Bedrooms', 'Drive to Beach Time', 'Current Nightly Price',
           'Previous Nightly Price', 'Total Price', 'Superhost/Rare Find', 'Ratings/Reviews']
 writer.writerow(header)
-
 # get listings for first page
 listings, next_page_url, found, page_number = get_listings(airbnb_url, 1)
-
 print(str(found))
 if found == True:
     listing_found(page_number)
