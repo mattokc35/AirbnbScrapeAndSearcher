@@ -28,7 +28,6 @@ Location must be space-separated with '-' (dashes), and date must be written wit
 
 Children, infants, and pets are optional parameters and will default to 0.
 
-**Children and infants currently not working**
 Each line in the CSV file will correspond to new Airbnb search that will be performed by `search.py`.
 
 To run the program, simply run
