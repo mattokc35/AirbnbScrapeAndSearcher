@@ -181,7 +181,6 @@ print(airbnb_url)
 listingsTotal = []
 pageNumber = 1
 
-print("hi")
 # if listings is found
 listingFound = False
 
@@ -209,7 +208,6 @@ writer.writerow(header)
 
 # get listings for first page
 listings, next_page_url, found, page_number = get_listings(airbnb_url, 1)
-print("hi2")
 print(str(found))
 if found == True:
     listing_found(page_number)
