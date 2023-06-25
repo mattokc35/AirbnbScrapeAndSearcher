@@ -20,11 +20,6 @@ To get started, install requirements `bs4` and `scrapy` with pip.
 pip3 bs4, scrapy
 ```
 
-Current Example Usage:
-
-```console
-python3 search.py --location=<my-location> --checkin=2023-05-09 --checkout=2023-05-11 --adults=10 --children=0 --infants=0 --pets=0 --my_listing=<your-listing-id-here>
-```
 # Running the Program
 
 Put your search parameters in the `InputParameters.csv` file. 
