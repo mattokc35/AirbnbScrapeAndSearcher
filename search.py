@@ -7,6 +7,7 @@ from bs4 import BeautifulSoup
 
 from datetime import date
 
+
 """
 TODO: export listing name, start external script
 
